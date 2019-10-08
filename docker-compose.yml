@@ -1,0 +1,28 @@
+version: '3.2'
+
+services:
+  fpm:
+    image: php:7.3-fpm
+    volumes:
+      - ./:/app:cached
+    depends_on:
+      - db
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/app:cached
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8080:80
+    depends_on:
+      - fpm
+  db:
+    image: postgres:latest
+    volumes:
+      - database:/var/lib/postgres/data
+    environment:
+      POSTGRES_USER: workshop
+      POSTGRES_PASSWORD: workshop
+
+volumes:
+  database:
