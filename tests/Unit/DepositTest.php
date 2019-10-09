@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\Deposit;
+use DateTimeImmutable;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -23,5 +24,12 @@ class DepositTest extends TestCase
         self::expectExceptionMessage('Deposit amount must be greater than zero.');
 
         new Deposit(-10.0);
+    }
+
+    public function testGetTransactionDate(): void
+    {
+        $subject = new Deposit(10.0);
+
+        self::assertInstanceOf(DateTimeImmutable::class, $subject->getTransactionDate());
     }
 }
