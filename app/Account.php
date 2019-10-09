@@ -9,34 +9,32 @@ use InvalidArgumentException;
 
 class Account
 {
-    private $balance = 0.0;
+    /** @var Ledger */
+    private $ledger;
+
+    public function __construct()
+    {
+        $this->ledger = new Ledger();
+    }
 
     public function deposit(float $amount): void
     {
-        if ($amount <= 0) {
-            throw new InvalidArgumentException(sprintf('Deposit amount must be greater than zero.'));
-        }
-
-        $this->balance += $amount;
+        $this->ledger->addTransaction(new Deposit($amount));
     }
 
     public function withdraw(float $amount): float
     {
-        if ($amount <= 0) {
-            throw new InvalidArgumentException(sprintf('Withdrawal amount must be greater than zero.'));
-        }
-
         if ($this->getBalance() < $amount) {
             throw new InsufficientFundsException();
         }
 
-        $this->balance -= $amount;
+        $this->ledger->addTransaction(new Withdrawal($amount));
 
         return $amount;
     }
 
     public function getBalance(): float
     {
-        return $this->balance;
+        return $this->ledger->getBalance();
     }
 }
