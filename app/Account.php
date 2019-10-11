@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace App;
 
 use App\Exceptions\InsufficientFundsException;
-use InvalidArgumentException;
+use Ramsey\Uuid\Uuid;
 
 class Account
 {
-    /** @var Ledger */
+    private $id;
     protected $ledger;
 
     public function __construct()
     {
+        $this->id = Uuid::uuid4();
         $this->ledger = new Ledger();
+    }
+
+    public function getId(): string
+    {
+        return (string) $this->id;
     }
 
     public function deposit(float $amount): void
