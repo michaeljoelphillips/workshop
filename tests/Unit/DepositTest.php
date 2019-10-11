@@ -30,6 +30,10 @@ class DepositTest extends TestCase
     {
         $subject = new Deposit(10.0);
 
-        self::assertInstanceOf(DateTimeImmutable::class, $subject->getTransactionDate());
+        $transactionDate = $subject->getTransactionDate();
+
+        self::assertInstanceOf(DateTimeImmutable::class, $transactionDate);
+        self::assertSame($transactionDate, $subject->getTransactionDate());
+        self::assertEquals((new DateTimeImmutable())->format('Y-m-d'), $transactionDate->format('Y-m-d'));
     }
 }
