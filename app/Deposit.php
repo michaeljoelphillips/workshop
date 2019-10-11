@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App;
 
+use DateTimeImmutable;
 use InvalidArgumentException;
 
 class Deposit implements TransactionInterface
 {
     private $amount;
+    private $transactionDate;
 
     public function __construct(float $amount)
     {
@@ -17,10 +19,16 @@ class Deposit implements TransactionInterface
         }
 
         $this->amount = $amount;
+        $this->transactionDate = new DateTimeImmutable();
     }
 
     public function getAmount(): float
     {
         return $this->amount;
+    }
+
+    public function getTransactionDate(): DateTimeImmutable
+    {
+        return $this->transactionDate;
     }
 }
