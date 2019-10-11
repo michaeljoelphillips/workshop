@@ -10,7 +10,7 @@ use InvalidArgumentException;
 class Account
 {
     /** @var Ledger */
-    private $ledger;
+    protected $ledger;
 
     public function __construct()
     {
