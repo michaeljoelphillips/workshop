@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use DateInterval;
+use DateTimeImmutable;
+
 class Ledger
 {
     /** @var TransactionInterface[] */
@@ -22,6 +25,20 @@ class Ledger
                 return $balance += $transaction->getAmount();
             },
             0.0
+        );
+    }
+
+    public function findByDateRange(DateTimeImmutable $startDate, DateInterval $interval): array
+    {
+        $endDate = $startDate->add($interval);
+
+        return array_filter(
+            $this->transactions,
+            function (TransactionInterface $transaction) use ($startDate, $endDate) {
+                $transactionDate = $transaction->getTransactionDate();
+
+                return $transactionDate >= $startDate && $transactionDate < $endDate;
+            }
         );
     }
 }
