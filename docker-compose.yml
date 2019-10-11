@@ -24,6 +24,8 @@ services:
     environment:
       POSTGRES_USER: workshop
       POSTGRES_PASSWORD: workshop
+  redis:
+    image: redis:latest
 
 volumes:
   database:
