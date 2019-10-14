@@ -9,5 +9,6 @@ use App\Account;
 interface AccountRepositoryInterface
 {
     public function find(string $id): ?Account;
+    public function findAll(): iterable;
     public function save(Account $account);
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Repository\AccountRepositoryInterface;
 use App\Repository\RedisAccountRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -33,9 +34,11 @@ class AppServiceProvider extends ServiceProvider
             return new Client([
                 'schema' => 'tcp',
                 'host' => config('database.redis.default.host'),
-                'port' => config('database.redis.default.port')
+                'port' => config('database.redis.default.port'),
             ]);
         });
+
+        $this->app->bind(AccountRepositoryInterface::class, RedisAccountRepository::class);
     }
 
     /**

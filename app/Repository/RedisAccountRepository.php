@@ -23,6 +23,11 @@ class RedisAccountRepository implements AccountRepositoryInterface
         return $this->redis->get(sprintf('%s-%s', self::KEY_PREFIX, $id));
     }
 
+    public function findAll(): iterable
+    {
+        return $this->redis->get(sprintf('%s-*', self::KEY_PREFIX));
+    }
+
     public function save(Account $account)
     {
         $this->redis->set(sprintf('%s-%s', self::KEY_PREFIX, $account->getId()), $account);

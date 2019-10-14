@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/accounts', 'AccountsController@index');
+Route::post('/accounts/transact', 'AccountsController@transact');
