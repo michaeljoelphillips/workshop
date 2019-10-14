@@ -43,4 +43,9 @@ class Account
     {
         return $this->ledger->getBalance();
     }
+
+    public function getTransactions(): array
+    {
+        return $this->ledger->getTransactions();
+    }
 }

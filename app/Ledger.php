@@ -17,6 +17,11 @@ class Ledger
         $this->transactions[] = $transaction;
     }
 
+    public function getTransactions(): array
+    {
+        return $this->transactions;
+    }
+
     public function getBalance(): float
     {
         return array_reduce(
